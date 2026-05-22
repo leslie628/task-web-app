@@ -16,14 +16,12 @@ const Login = () => {
       // Handle login error
     }
   };
-  const handleGuestLogin = () => {
-    const handleGuestLogin = async () => {
-      const res = await AuthService.login({
-        username: "guest",
-        password: "guest123",
-      });
-      navigate("/tasks");
-    };
+  const handleGuestLogin = async () => {
+    const res = await AuthService.Login({
+      username: "guest",
+      password: "guest123",
+    });
+    navigate("/tasks");
   };
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -61,8 +59,9 @@ const Login = () => {
         >
           Register New User
         </button>
+
         <button
-          className="bg-green-600 text-white hover:bg-green-700"
+          className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition mt-3"
           onClick={handleGuestLogin}
         >
           Continue as Guest
