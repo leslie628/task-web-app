@@ -19,8 +19,7 @@ A full-stack task management application built with React (Vite) for the fronten
 * Edit Tasks
 * Delete Tasks
 * Mark Task as completed
-
-Architecture
+## Architecture
 
                 ┌──────────────────────────────┐
                 │          Frontend            │
