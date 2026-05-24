@@ -57,3 +57,11 @@ Architecture
         └────────────────────────────────────────────┘
 
 ## Vercel frontend auto deploy
+
+![task web app auto deploy](./images/vercel-task-app-deploy.png)
+
+## Task manager API auto deploy
+![Task manager API auto deploy](./images/render-autodeploy.png)
+
+## Supabase Db Schema
+![Supabase Db schema](./images/supabase-db-schema.png)
