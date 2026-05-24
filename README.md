@@ -65,3 +65,9 @@ Architecture
 
 ## Supabase Db Schema
 ![Supabase Db schema](./images/supabase-db-schema.png)
+
+## API Header Request Cookie attached
+![API header request cookie](./images/API-JWT-Secure.png)
+
+## Secure API requests with HttpOnly cookie
+![Secure API- HttpOnly](./images/Secure-API.png)
