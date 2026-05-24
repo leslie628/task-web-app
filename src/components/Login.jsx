@@ -1,7 +1,9 @@
 import { useState } from "react";
 import AuthService from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
+import useLogin from "../hooks/useLogin";
 const Login = () => {
+  const { Login, loading, userData } = useLogin();
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     username: "",
@@ -9,19 +11,26 @@ const Login = () => {
   });
   const handleLogin = async () => {
     try {
-      const data = await AuthService.Login(credentials);
-      navigate("/tasks");
+      const data = await Login(credentials);
+
+      setTimeout(() => {
+        navigate("/tasks");
+      }, 500);
       console.log(data);
     } catch (error) {
       // Handle login error
     }
   };
   const handleGuestLogin = async () => {
-    const res = await AuthService.Login({
-      username: "guest",
-      password: "guest123",
-    });
-    navigate("/tasks");
+    try {
+      await Login({
+        username: "guest",
+        password: "guest123",
+      });
+      navigate("/tasks");
+    } catch (error) {
+      // Handle guest login error
+    }
   };
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -67,6 +76,12 @@ const Login = () => {
           Continue as Guest
         </button>
       </div>
+      {loading && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm z-50">
+          <div className="w-10 h-10 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+          <p className="mt-3 text-gray-600">Loading...</p>
+        </div>
+      )}
     </div>
   );
 };
