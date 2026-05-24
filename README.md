@@ -1,16 +1,59 @@
-# React + Vite
+# Task Manager App (Full Stack)
+A full-stack task management application built with React (Vite) for the frontend and ASP.NET Core Web API for the backend. The application supports secure authentication using JWT stored in HttpOnly cookies and full CRUD operations for tasks.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Live Demo
+🌐 Frontend: https://task-web-app-amber.vercel.app/
+⚙️ Backend API: https://taskmanager-api-cxl8.onrender.com
 
-Currently, two official plugins are available:
+# Features
+##Authentication
+* User Registration
+* Secure Login
+* JWT based authentication
+* HttpOnly cookie session handling
+* Guest Login option
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Task Management
+* List Tasks
+* Create Tasks
+* Edit Tasks
+* Delete Tasks
+* Mark Task as completed
 
-## React Compiler
+Architecture
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+                ┌──────────────────────────────┐
+                │          Frontend            │
+                │     React + Vite App         │
+                │     (Hosted on Vercel)       │
+                └─────────────┬────────────────┘
+                              │
+                              │ HTTPS Requests
+                              ▼
+                ┌──────────────────────────────┐
+                │        Backend API           │
+                │   ASP.NET Core Web API       │
+                │   (Hosted on Render)         │
+                │                              │
+                │ - Authentication (JWT)       │
+                │ - Task CRUD APIs             │
+                │ - Cookie-based auth          │
+                └─────────────┬────────────────┘
+                              │
+                              ▼
+                ┌──────────────────────────────┐
+                │     Render PostgreSQL DB     │
+                │                              │
+                │ - Users                      │
+                │ - Tasks                      │
+                └──────────────────────────────┘
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+        ┌────────────────────────────────────────────┐
+        │           Authentication Layer             │
+        │  ✔ JWT stored in HttpOnly Cookies          │
+        │  ✔ Auto-attached to API requests           │
+        │  ✔ Secure session management               │
+        └────────────────────────────────────────────┘
+
+## Vercel frontend auto deploy
