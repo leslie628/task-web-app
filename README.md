@@ -6,7 +6,7 @@ A full-stack task management application built with React (Vite) for the fronten
 ⚙️ Backend API: https://taskmanager-api-cxl8.onrender.com
 
 # Features
-##Authentication
+## Authentication
 * User Registration
 * Secure Login
 * JWT based authentication
