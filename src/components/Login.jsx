@@ -12,10 +12,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const data = await Login(credentials);
-
-      setTimeout(() => {
-        navigate("/tasks");
-      }, 500);
+      navigate("/tasks");
       console.log(data);
     } catch (error) {
       // Handle login error
