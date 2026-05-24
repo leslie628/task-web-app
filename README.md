@@ -2,7 +2,7 @@
 A full-stack task management application built with React (Vite) for the frontend and ASP.NET Core Web API for the backend. The application supports secure authentication using JWT stored in HttpOnly cookies and full CRUD operations for tasks.
 
 # Live Demo
-🌐 Frontend: https://task-web-app-amber.vercel.app/
+🌐 Frontend: https://task-web-app-amber.vercel.app/<br>
 ⚙️ Backend API: https://taskmanager-api-cxl8.onrender.com
 
 # Features
