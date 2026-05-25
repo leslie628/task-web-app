@@ -19,6 +19,30 @@ const useTask = () => {
       setLoading(false);
     }
   };
-  return { tasks, fetchTasks, loading };
+  const deleteTask = async (id) => {
+    try {
+      await TaskService.deleteTask(id);
+      fetchTasks();
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
+  };
+  const updateTask = async (id, taskData) => {
+    try {
+      await TaskService.updateTask(id, taskData);
+      fetchTasks();
+    } catch (error) {
+      console.error("Error updating task:", error);
+    }
+  };
+  const createTask = async (taskData) => {
+    try {
+      await TaskService.createTask(taskData);
+      fetchTasks();
+    } catch (error) {
+      console.error("Error creating task:", error);
+    }
+  };
+  return { tasks, fetchTasks, loading, deleteTask, updateTask, createTask };
 };
 export default useTask;
