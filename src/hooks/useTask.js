@@ -27,9 +27,9 @@ const useTask = () => {
       console.error("Error deleting task:", error);
     }
   };
-  const updateTask = async (id, taskData) => {
+  const updateTask = async (taskData) => {
     try {
-      await TaskService.updateTask(id, taskData);
+      await TaskService.updateTask(taskData);
       fetchTasks();
     } catch (error) {
       console.error("Error updating task:", error);

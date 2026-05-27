@@ -29,7 +29,7 @@ const TaskService = {
       throw error;
     }
   },
-    updateTask: async (id, taskData) => {
+    updateTask: async (taskData) => {
     try {
       const response = await API.put("/api/task", { ...taskData });
       return response.data;
