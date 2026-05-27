@@ -72,6 +72,12 @@ const Login = () => {
         >
           Continue as Guest
         </button>
+        <div class="mt-6 flex justify-center">
+          <div class="text-xs text-gray-400 bg-gray-50 border border-gray-200 px-3 py-2 rounded-md">
+            Note: First login may take a few seconds due to server cold start
+            (free hosting).
+          </div>
+        </div>
       </div>
       {loading && (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm z-50">
