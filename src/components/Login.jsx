@@ -12,8 +12,13 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const data = await Login(credentials);
-      navigate("/tasks");
-      console.log(data);
+
+      if (!data || !data.username) {
+        throw new Error("Invalid login response");
+      } else {
+        navigate("/tasks");
+        console.log(data);
+      }
     } catch (error) {
       // Handle login error
     }
