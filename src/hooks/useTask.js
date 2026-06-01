@@ -37,10 +37,13 @@ const useTask = () => {
   };
   const createTask = async (taskData) => {
     try {
+      setLoading(true);
       await TaskService.createTask(taskData);
       fetchTasks();
     } catch (error) {
       console.error("Error creating task:", error);
+    } finally {
+      setLoading(false);
     }
   };
   return { tasks, fetchTasks, loading, deleteTask, updateTask, createTask };

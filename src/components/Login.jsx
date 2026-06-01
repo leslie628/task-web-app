@@ -1,9 +1,9 @@
 import { useState } from "react";
 import AuthService from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
-import useLogin from "../hooks/useLogin";
+import { useAuth } from "../hooks/AuthProvider";
 const Login = () => {
-  const { Login, loading, userData } = useLogin();
+  const { Login, loading, userData } = useAuth();
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     username: "",

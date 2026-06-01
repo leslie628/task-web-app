@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useTask from "../hooks/useTask";
+import Header from "./header";
 
 const TaskList = () => {
   const { tasks, fetchTasks, loading, deleteTask, updateTask, createTask } =
@@ -18,7 +19,12 @@ const TaskList = () => {
   });
 
   const handleEditClick = (task) => {
-    setEditTask({ ...editTask, id: task.id, title: task.title, description: task.description });
+    setEditTask({
+      ...editTask,
+      id: task.id,
+      title: task.title,
+      description: task.description,
+    });
     setShowEditModal(true);
   };
   const handleUpdate = async () => {
@@ -105,6 +111,12 @@ const TaskList = () => {
           )}
         </tbody>
       </table>
+      {loading && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm z-50">
+          <div className="w-10 h-10 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+          <p className="mt-3 text-gray-600">Loading...</p>
+        </div>
+      )}
       {showAddModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
           <div className="bg-white w-[90%] max-w-md rounded-2xl shadow-2xl p-6">
