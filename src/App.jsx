@@ -7,7 +7,7 @@ import Login from "./components/Login";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Register from "./components/Register";
 import TaskList from "./components/TaskList";
-import Layout from "./components/Layout";
+import Layout from "./components/layout";
 import { AuthProvider } from "./hooks/AuthProvider";
 
 function App() {
