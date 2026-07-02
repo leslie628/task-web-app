@@ -6,6 +6,7 @@ const Register = () => {
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
+    display_name: ""
   });
   const handleRegister = async () => {
     try {
@@ -37,6 +38,16 @@ const Register = () => {
             value={credentials.password}
             onChange={(e) =>
               setCredentials({ ...credentials, password: e.target.value })
+            }
+            className="w-full mb-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+
+          <input
+            type="text"
+            placeholder="Display Name"
+            value={credentials.display_name}
+            onChange={(e) =>
+              setCredentials({ ...credentials, display_name: e.target.value })
             }
             className="w-full mb-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
