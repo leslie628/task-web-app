@@ -3,6 +3,7 @@ import TaskService from "../services/TaskService";
 
 const useTask = () => {
   const [tasks, setTasks] = useState([]);
+  const [aITasksSuggested, setAITasksSuggested] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     fetchTasks();
@@ -46,6 +47,35 @@ const useTask = () => {
       setLoading(false);
     }
   };
-  return { tasks, fetchTasks, loading, deleteTask, updateTask, createTask };
+   const createBulkTask = async (tasksData) => {
+    try {
+      setLoading(true);
+      await TaskService.createBulkTask(tasksData);
+      fetchTasks();
+    } catch (error) {
+      console.error("Error creating bulk tasks:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const suggestTask = async (description) => {
+    try {
+      setLoading(true);
+      const suggestions = await TaskService.suggestTask(description);
+      setAITasksSuggested(suggestions?.subtasks);
+    } catch (error) {
+      console.error("Error suggesting task:", error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+  const clearAISuggestedTasks = () => {
+    setAITasksSuggested([]);
+  };
+  const clearAITasks = () => {
+    setAITasks([]);
+  };
+  return { tasks, fetchTasks, loading, deleteTask, updateTask, createTask, createBulkTask, suggestTask, aITasksSuggested, clearAISuggestedTasks, clearAITasks };
 };
 export default useTask;

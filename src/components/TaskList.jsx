@@ -1,15 +1,28 @@
 import { useState } from "react";
 import useTask from "../hooks/useTask";
 import Header from "./header";
+import { Sparkles } from "lucide-react";
+import AISuggestionList from "./AISuggestionList";
 
 const TaskList = () => {
-  const { tasks, fetchTasks, loading, deleteTask, updateTask, createTask } =
-    useTask();
+  const {
+    tasks,
+    fetchTasks,
+    loading,
+    deleteTask,
+    updateTask,
+    createTask,
+    createBulkTask,
+    suggestTask,
+    aITasksSuggested,
+    clearAISuggestedTasks,
+  } = useTask();
   const [editingTask, setEditingTask] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editTitle, setEditTitle] = useState("");
   const [editTask, setEditTask] = useState({ title: "", description: "" });
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showAIAddModal, setShowAIAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const [newTask, setNewTask] = useState({
@@ -17,7 +30,10 @@ const TaskList = () => {
     description: "",
     isCompleted: false,
   });
-
+  const [aITaskSuggest, setAITaskSuggest] = useState({
+    description: "",
+  });
+  const [selectedTasks, setSelectedTasks] = useState([]);
   const handleEditClick = (task) => {
     setEditTask({
       ...editTask,
@@ -37,11 +53,36 @@ const TaskList = () => {
   const handleAddOnChange = (e) => {
     setNewTask({ ...newTask, [e.target.name]: e.target.value });
   };
+  const handleAddAITaskOnChange = (e) => {
+    setAITaskSuggest({ ...aITaskSuggest, [e.target.name]: e.target.value });
+  };
   const handleAddTask = () => {
     // Implement task creation logic here
     createTask(newTask);
     setShowAddModal(false);
     setNewTask({ title: "", description: "", isCompleted: false });
+  };
+
+  const handleSaveAITask = () => {
+    // Implement task creation logic here
+    const payload = selectedTasks.map((task) => ({
+      title: task.name,
+      description: task.description,
+      isCompleted: false,
+    }));
+    createBulkTask(payload);
+    setShowAIAddModal(false);
+    clearAISuggestedTasks();
+    setSelectedTasks([]);
+    setAITaskSuggest({ description: ""});
+  };
+
+  const handleCancelAITask = () => {
+    setShowAIAddModal(false);
+    clearAISuggestedTasks();
+    setSelectedTasks([]);
+    setAITaskSuggest({ description: "" });
+    clearAITasks();
   };
   const confirmDelete = async () => {
     await deleteTask(selectedTaskId);
@@ -51,6 +92,9 @@ const TaskList = () => {
   const handleDeleteClick = (id) => {
     setSelectedTaskId(id);
     setShowDeleteModal(true);
+  };
+  const handleGenerateSuggestions = (taskDescription) => {
+    suggestTask(taskDescription);
   };
   return (
     <div className="p-6">
@@ -65,6 +109,15 @@ const TaskList = () => {
         className="bg-green-500 text-white px-4 py-2 rounded"
       >
         + Add Task
+      </button>
+      <button
+        onClick={() => setShowAIAddModal(true)}
+        className="bg-green-500 text-white px-4 py-2 m-2 rounded flex-row"
+      >
+        <div className="flex flex-row">
+          <Sparkles size={18} />
+          AI Task Planner
+        </div>
       </button>
       <table className="w-full border-collapse border border-gray-300">
         <thead>
@@ -157,6 +210,61 @@ const TaskList = () => {
 
               <button
                 onClick={handleAddTask}
+                className="px-4 py-2 rounded-lg bg-green-500 text-white 
+                     hover:bg-green-600 transition shadow-md"
+              >
+                Save Task
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {showAIAddModal && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+          <div className="bg-white w-[90%] max-w-md rounded-2xl shadow-2xl p-6">
+            {/* Header */}
+            <h2 className="text-xl font-semibold text-gray-800 mb-5">
+              AI Task planner
+            </h2>
+
+            {/* Description Input */}
+            <div className="flex flex-col items-center justify-center py-4">
+              <textarea
+                className="w-full border border-gray-300 rounded-lg p-3 mb-4 
+                   focus:outline-none focus:ring-2 focus:ring-green-400 resize-none"
+                placeholder="Task description"
+                name="description"
+                value={aITaskSuggest.description}
+                onChange={handleAddAITaskOnChange}
+                rows={1}
+              />
+              <button
+                onClick={() =>
+                  handleGenerateSuggestions(aITaskSuggest.description)
+                }
+                className="flex px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 transition"
+              >
+                <Sparkles size={16} /> Generate Suggestions
+              </button>
+            </div>
+            {aITasksSuggested.length > 0 && (
+              <AISuggestionList
+                suggestions={aITasksSuggested}
+                selectedTasks={selectedTasks}
+                setSelectedTasks={setSelectedTasks}
+              />
+            )}
+            {/* Buttons */}
+            <div className="flex justify-end gap-3 mt-4">
+              <button
+                onClick={() => handleCancelAITask()}
+                className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 transition"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={handleSaveAITask}
                 className="px-4 py-2 rounded-lg bg-green-500 text-white 
                      hover:bg-green-600 transition shadow-md"
               >
