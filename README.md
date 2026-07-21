@@ -90,5 +90,6 @@ Backend Code: https://github.com/leslie628/taskapi
 ## AI integration for tasks suggestions (UI)
 ![AI-planner](./images/AI-planner.png)
 
+## Suggestions comes from open AI (integrated in asp.net core)
 ![AI-planner-suggest](./images/AI-planner-suggest.png)
 
