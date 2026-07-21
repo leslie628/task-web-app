@@ -3,6 +3,7 @@ import useTask from "../hooks/useTask";
 import Header from "./header";
 import { Sparkles } from "lucide-react";
 import AISuggestionList from "./AISuggestionList";
+import useTaskSuggestions from "../hooks/useTaskSuggestions";
 
 const TaskList = () => {
   const {
@@ -13,10 +14,13 @@ const TaskList = () => {
     updateTask,
     createTask,
     createBulkTask,
+  } = useTask();
+  const {
     suggestTask,
     aITasksSuggested,
     clearAISuggestedTasks,
-  } = useTask();
+    loading: suggestionsLoading,
+  } = useTaskSuggestions();
   const [editingTask, setEditingTask] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editTitle, setEditTitle] = useState("");
@@ -74,7 +78,7 @@ const TaskList = () => {
     setShowAIAddModal(false);
     clearAISuggestedTasks();
     setSelectedTasks([]);
-    setAITaskSuggest({ description: ""});
+    setAITaskSuggest({ description: "" });
   };
 
   const handleCancelAITask = () => {
@@ -82,7 +86,6 @@ const TaskList = () => {
     clearAISuggestedTasks();
     setSelectedTasks([]);
     setAITaskSuggest({ description: "" });
-    clearAITasks();
   };
   const confirmDelete = async () => {
     await deleteTask(selectedTaskId);
@@ -221,7 +224,7 @@ const TaskList = () => {
       )}
       {showAIAddModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-          <div className="bg-white w-[90%] max-w-md rounded-2xl shadow-2xl p-6">
+          <div className="bg-white w-[90%] max-w-md rounded-2xl shadow-2xl p-6 relative">
             {/* Header */}
             <h2 className="text-xl font-semibold text-gray-800 mb-5">
               AI Task planner
@@ -247,12 +250,18 @@ const TaskList = () => {
                 <Sparkles size={16} /> Generate Suggestions
               </button>
             </div>
-            {aITasksSuggested.length > 0 && (
-              <AISuggestionList
-                suggestions={aITasksSuggested}
-                selectedTasks={selectedTasks}
-                setSelectedTasks={setSelectedTasks}
-              />
+
+            <AISuggestionList
+              suggestions={aITasksSuggested}
+              selectedTasks={selectedTasks}
+              setSelectedTasks={setSelectedTasks}
+              loading={suggestionsLoading}
+            />
+            {suggestionsLoading && (
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm">
+                <div className="w-10 h-10 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+                <p className="mt-3 text-gray-600">Loading...</p>
+              </div>
             )}
             {/* Buttons */}
             <div className="flex justify-end gap-3 mt-4">

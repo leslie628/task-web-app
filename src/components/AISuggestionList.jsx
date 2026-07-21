@@ -1,6 +1,10 @@
 import { useState } from "react";
 
-const AISuggestionList = ({ suggestions, selectedTasks, setSelectedTasks }) => {
+const AISuggestionList = ({
+  suggestions,
+  selectedTasks,
+  setSelectedTasks
+}) => {
   const handleSelect = (task, checked) => {
     if (checked) {
       setSelectedTasks((prev) => [...prev, task]);
@@ -9,7 +13,7 @@ const AISuggestionList = ({ suggestions, selectedTasks, setSelectedTasks }) => {
     }
   };
   return (
-    <div className="max-h-96 overflow-y-auto pr-2 space-y-3">
+    <div className="relative max-h-96 overflow-y-auto pr-2 space-y-3">
       {suggestions.map((task) => (
         <label
           key={task.id}

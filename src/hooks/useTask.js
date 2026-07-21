@@ -58,24 +58,7 @@ const useTask = () => {
       setLoading(false);
     }
   };
-  const suggestTask = async (description) => {
-    try {
-      setLoading(true);
-      const suggestions = await TaskService.suggestTask(description);
-      setAITasksSuggested(suggestions?.subtasks);
-    } catch (error) {
-      console.error("Error suggesting task:", error);
-      throw error;
-    } finally {
-      setLoading(false);
-    }
-  };
-  const clearAISuggestedTasks = () => {
-    setAITasksSuggested([]);
-  };
-  const clearAITasks = () => {
-    setAITasks([]);
-  };
-  return { tasks, fetchTasks, loading, deleteTask, updateTask, createTask, createBulkTask, suggestTask, aITasksSuggested, clearAISuggestedTasks, clearAITasks };
+  
+  return { tasks, fetchTasks, loading, deleteTask, updateTask, createTask, createBulkTask};
 };
 export default useTask;
