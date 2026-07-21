@@ -17,9 +17,11 @@ Backend Code: https://github.com/leslie628/taskapi
 ## Task Management
 * List Tasks
 * Create Tasks
+* Create Tasks (AI suggestion with bulk creation)
 * Edit Tasks
 * Delete Tasks
 * Mark Task as completed
+  
 ## Architecture
 
                 ┌──────────────────────────────┐
@@ -40,6 +42,12 @@ Backend Code: https://github.com/leslie628/taskapi
                 │ - Cookie-based auth          │
                 └─────────────┬────────────────┘
                               │
+                              ├─────────────────────►
+                              │                      ┌──────────────────────────────┐
+                              │                      │          AI Layer            │
+                              │                      │      OpenAI GPT-4.1-mini     │
+                              │                      │   Task Suggestion Service    │
+                              │                      └──────────────────────────────┘
                               ▼
                 ┌──────────────────────────────┐
                 │     Render PostgreSQL DB     │
@@ -51,10 +59,11 @@ Backend Code: https://github.com/leslie628/taskapi
 
         ┌────────────────────────────────────────────┐
         │           Authentication Layer             │
-        │  ✔ JWT stored in HttpOnly Cookies          │
-        │  ✔ Auto-attached to API requests           │
-        │  ✔ Secure session management               │
+        │ ✔ JWT stored in HttpOnly Cookies           │
+        │ ✔ Auto-attached to API requests            │
+        │ ✔ Secure session management                │
         └────────────────────────────────────────────┘
+               
 
 ## Vercel frontend auto deploy
 
@@ -71,3 +80,15 @@ Backend Code: https://github.com/leslie628/taskapi
 
 ## Secure API requests with HttpOnly cookie
 ![Secure API- HttpOnly](./images/Secure-API.png)
+
+## Environment variable for base url (vercel)- UI
+![baseURL-env](./images/baseUrl-env.png)
+
+## Environment variable for openAI apikey and db connection (render)- backend
+![baseURL-env](./images/environment-variables.png)
+
+## AI integration for tasks suggestions (UI)
+![AI-planner](./images/AI-planner.png)
+
+![AI-planner-suggest](./images/AI-planner-suggest.png)
+
