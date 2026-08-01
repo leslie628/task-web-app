@@ -28,6 +28,14 @@ const useTask = () => {
       console.error("Error deleting task:", error);
     }
   };
+    const deleteBulkTask = async (ids) => {
+    try {
+      await TaskService.deleteBulkTask(ids);
+      fetchTasks();
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
+  };
   const updateTask = async (taskData) => {
     try {
       await TaskService.updateTask(taskData);
@@ -59,6 +67,6 @@ const useTask = () => {
     }
   };
   
-  return { tasks, fetchTasks, loading, deleteTask, updateTask, createTask, createBulkTask};
+  return { tasks, fetchTasks, loading, deleteTask, deleteBulkTask, updateTask, createTask, createBulkTask};
 };
 export default useTask;

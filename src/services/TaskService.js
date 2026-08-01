@@ -38,6 +38,15 @@ const TaskService = {
       throw error;
     }
   },
+   deleteBulkTask: async (ids) => {
+    try {
+      const response = await API.delete(`/api/task/bulk`, { data: ids });
+      return response.data;
+    } catch (error) {
+      console.error("Error deleting task:", error);
+      throw error;
+    }
+  },
   updateTask: async (taskData) => {
     try {
       const response = await API.put("/api/task", { ...taskData });

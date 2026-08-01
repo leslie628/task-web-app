@@ -3,11 +3,11 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
 import "./App.css";
-import Login from "./components/Login";
+import Login from "./components/features/auth/Login";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Register from "./components/Register";
-import TaskList from "./components/TaskList";
-import Layout from "./components/layout";
+import Register from "./components/features/auth/Register";
+import TaskList from "./components/features/tasks/TaskList";
+import Layout from "./components/Layout/Layout";
 import { AuthProvider } from "./hooks/AuthProvider";
 
 function App() {
