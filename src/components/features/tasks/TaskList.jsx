@@ -23,6 +23,7 @@ const TaskList = () => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showAIAddModal, setShowAIAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDeleteAllModal, setShowDeleteAllModal] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const [selectedTasks, setSelectedTasks] = useState([]);
   const [newTask, setNewTask] = useState({
@@ -65,10 +66,18 @@ const TaskList = () => {
     setShowDeleteModal(false);
     setSelectedTaskId(null);
   };
+  const confirmDeleteAll = async () => {
+    await deleteBulkTask(selectedTasks);
+    setShowDeleteAllModal(false);
+    setSelectedTasks([]);
+  };
   const handleDeleteClick = (id) => {
     setSelectedTaskId(id);
     setShowDeleteModal(true);
   };
+  const handleDeleteAllClick = () => {
+    setShowDeleteAllModal(true);
+  }
   const handleSelection = (taskId) => {
     setSelectedTasks((prevSelected) => {
       if (prevSelected.includes(taskId)) {
@@ -82,9 +91,6 @@ const TaskList = () => {
     await deleteBulkTask(selectedTasks);
     setSelectedTasks([]);
   };
-  useEffect(() => {
-    console.log("Selected Tasks:", selectedTasks);
-  }, [selectedTasks]);
 
   return (
     <div className="p-6">
@@ -110,7 +116,7 @@ const TaskList = () => {
         </div>
       </button>
       <button
-        onClick={() => handleDeleteSelected()}
+        onClick={() => handleDeleteAllClick()}
         className={`px-4 py-2 m-2 rounded text-white flex-row ${
           selectedTasks.length === 0
             ? "bg-gray-400 cursor-not-allowed opacity-60"
@@ -118,7 +124,7 @@ const TaskList = () => {
         }`}
         disabled={selectedTasks.length === 0}
       >
-        <div className="flex flex-row">Delete All</div>
+        <div className="flex flex-row">Delete selected</div>
       </button>
       <table className="w-full border-collapse border border-gray-300">
         <thead>
@@ -310,6 +316,39 @@ const TaskList = () => {
                      hover:bg-red-600 transition shadow-md"
               >
                 Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {showDeleteAllModal && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+          <div className="bg-white w-[90%] max-w-sm rounded-2xl shadow-2xl p-6">
+            {/* Title */}
+            <h2 className="text-lg font-semibold text-gray-800 mb-2">
+              ⚠️ Delete All Tasks
+            </h2>
+
+            {/* Message */}
+            <p className="text-gray-600 mb-5">
+              Are you sure you want to delete all tasks?
+            </p>
+
+            {/* Buttons */}
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setShowDeleteAllModal(false)}
+                className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 transition"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={confirmDeleteAll}
+                className="px-4 py-2 rounded-lg bg-red-500 text-white 
+                     hover:bg-red-600 transition shadow-md"
+              >
+                Delete All
               </button>
             </div>
           </div>
