@@ -326,12 +326,12 @@ const TaskList = () => {
           <div className="bg-white w-[90%] max-w-sm rounded-2xl shadow-2xl p-6">
             {/* Title */}
             <h2 className="text-lg font-semibold text-gray-800 mb-2">
-              ⚠️ Delete All Tasks
+              ⚠️ Delete Selected Tasks
             </h2>
 
             {/* Message */}
             <p className="text-gray-600 mb-5">
-              Are you sure you want to delete all tasks?
+              Are you sure you want to delete selected tasks?
             </p>
 
             {/* Buttons */}
